@@ -1,0 +1,8 @@
+azure:
+  cosmos:
+    uri: https://<<YOUR_COSMOSDB>>.documents.azure.com:443/
+    key: <<YOUR_COSMOSDB_KEY>>
+  
+  storage:
+    accountname: <<YOUR_DATALAKE_STORAGE_ACCOUNT_NAME>>
+    connectionstring: <<YOUR_DATALAKE_STORAGE_CONNECTION_STRING>>

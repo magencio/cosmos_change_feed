@@ -1,0 +1,43 @@
+classDiagram
+  CosmosChangeFeedApplication ..> IChangeFeed
+
+  IChangeFeed <|.. ChangeFeed
+
+  ChangeFeed ..> CosmosConfiguration
+  ChangeFeed ..> IProcessor : handle changes
+
+  IProcessor <|.. JobProcessor
+
+  JobProcessor ..> IDataSourceServiceFactory : get Data Source service
+  JobProcessor ..> IIngestionServiceFactory : get Ingestion service
+  JobProcessor ..> IJobStateService
+  JobProcessor -- IDataSourceService : uses
+  JobProcessor -- IIngestionService : uses
+
+  IJobStateService <|.. JobStateService
+
+  JobStateService ..> JobStateRepository
+
+  IDataSourceServiceFactory -- IDataSourceService : creates
+
+  IDataSourceService <|.. StorageDataSourceService
+
+  StorageDataSourceService ..> IStorageService
+
+  IStorageService <|.. DataLakeStorageGen2Service
+
+  DataLakeStorageGen2Service ..> StorageConfiguration
+
+  IIngestionServiceFactory -- IIngestionService : creates
+
+  IIngestionService <|.. CosmosIngestionService
+
+  CosmosIngestionService ..> ReactiveCosmosRepository
+
+  ReactiveCosmosRepository <|-- Type1Repository
+  ReactiveCosmosRepository <|-- Type2Repository
+
+  CosmosIngestionService ..> IItemEntityCreator
+
+  IItemEntityCreator <|.. Type1EntityCreator
+  IItemEntityCreator <|.. Type2EntityCreator
